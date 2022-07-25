@@ -60,13 +60,13 @@ class RizzoSignatures(object):
             return
 
         print('\n\nGENERATED FORMAL SIGNATURES FOR:')
-        for (key, ea) in self.formal.iteritems():
+        for (key, ea) in self.formal.items():
             func = RizzoFunctionDescriptor(self.formal, self.functions, key)
             if func.name in self.SHOW:
                 print(func.name)
 
         print('\n\nGENERATED FUZZY SIGNATURES FOR:')
-        for (key, ea) in self.fuzzy.iteritems():
+        for (key, ea) in self.fuzzy.items():
             func = RizzoFunctionDescriptor(self.fuzzy, self.functions, key)
             if func.name in self.SHOW:
                 print(func.name)
@@ -265,7 +265,7 @@ class Rizzo(object):
             # Check for and remove string duplicate signatures (the same
             # string can appear more than once in an IDB).
             # If no duplicates, add this to the string signature dict.
-            if signatures.strings.has_key(strhash):
+            if strhash in signatures.strings:
                 del signatures.strings[strhash]
                 signatures.stringdups.add(strhash)
             elif strhash not in signatures.stringdups:
@@ -430,7 +430,8 @@ class Rizzo(object):
                         cblock = RizzoBlockDescriptor(cblock)
 
                         if cblock.match(nblock, fuzzy):
-                            if bm.has_key(cblock):
+                            if cblock in bm:
+                                #if bm.has_key(cblock):
                                 del bm[cblock]
                                 duplicates.add(cblock)
                             elif cblock not in duplicates:
